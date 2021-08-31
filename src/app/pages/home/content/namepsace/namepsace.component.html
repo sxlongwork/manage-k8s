@@ -1,0 +1,60 @@
+<nz-header class="namespace-header">
+    <!-- Namepspace -->
+    <!-- <h2 class="ns-des">Namespace</h2> -->
+    Namespace
+    <button nz-button nzType="primary" class="ns-add" (click)="addNamespace()">创建</button>
+</nz-header>
+<nz-table #basicTable [nzData]="namespace">
+    <thead>
+        <tr>
+            <th>名称</th>
+            <th>状态</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data" class="ns-item">
+            <td>{{data.name}}</td>
+            <td [ngClass]="{'activeStatus': data.status==='Active', 'unactiveStatus': data.status !== 'Active'}" >{{data.status}}</td> 
+            <td>{{data.createTime | toLocaltime}}</td>
+            <td>
+                <a (click)="detail(data.name)">Detail</a>
+                <!--  <nz-divider nzType="vertical"></nz-divider>
+          <a>Edit</a>
+            <nz-divider nzType="vertical"></nz-divider>
+          <a>Delete</a> -->
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Namespace Detail" (nzOnCancel)="handleCancel()" [nzFooter]='null'>
+    <ng-container *nzModalContent>
+        <p>
+            <span class="model-text">名称: </span>
+            <span class="model-value">{{nsDetail.name}}</span>
+        </p>
+        <p>
+            <span class="model-text">状态: </span>
+            <span class="model-value" [ngClass]="{'activeStatus': nsDetail.status==='Active', 'unactiveStatus': nsDetail.status !== 'Active'}">{{nsDetail.status}}</span>
+        </p>
+        <p>
+            <span class="model-text">创建时间: </span>
+            <span class="model-value">{{nsDetail.createTime | toLocaltime}}</span>
+        </p>
+    </ng-container>
+</nz-modal>
+<nz-modal [nzVisible]="isAddNamespace" nzTitle="Add New Namespace" (nzOnCancel)="cancelAdd()" (nzOnOk)="confirmAdd()">
+    <ng-container *nzModalContent>
+        <!-- <p> -->
+            <form nz-form [formGroup]="addNamespaceGroup" nzLayout="horizontal">
+              <nz-form-item>
+                <nz-form-label nzSpan="4" nzRequired>Name</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input namespace name">
+                    <input nz-input formControlName="name" id="name" />
+                  </nz-form-control>
+              </nz-form-item>
+            </form>
+        <!-- </p> -->
+    </ng-container>
+</nz-modal>

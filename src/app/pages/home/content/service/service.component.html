@@ -1,0 +1,65 @@
+<nz-table #services [nzData]="serviceList" [nzPageSize]="10" nzTableLayout="fixed">
+    <thead>
+        <tr>
+            <th *ngFor="let item of serviceInfoColumns" [nzSortOrder]="item.sortOrder" [nzSortFn]="item.sortFn"
+                [nzSortDirections]="item.sortDirections">
+                {{ item.name }}
+            </th>
+            <th>CLUSTER-IP</th>
+            <th>EXTERNAL-IP</th>
+            <th>PORT(S)</th>
+            <th>OPERATION</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let service of services.data" class="service-item">
+            <td>{{ service.name }}</td>
+            <td>{{ service.type }}</td>
+            <td>{{ service.clusterIP }}</td>
+            <td>{{ service.externalIP }}</td>
+            <td>{{ service.ports }}</td>
+            <td>
+                <a (click)="getServiceDetail(service.name)">Detail</a>
+
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Service Detail" (nzOnCancel)="handleCancel()" [nzFooter]='null'>
+    <nz-container *nzModalContent>
+        <p>
+            <span class="model-text">Name:</span>
+            <span class="model-value">{{ ServiceDetail.name }}</span>
+        </p>
+        <p>
+            <span class="model-text">Type:</span>
+            <span class="model-value">{{ ServiceDetail.type }}</span>
+        </p>
+        <p>
+            <span class="model-text">ClusterIP:</span>
+            <span class="model-value">{{ ServiceDetail.clusterIP }}</span>
+        </p>
+        <p>
+            <span class="model-text">ExternalIP:</span>
+            <span class="model-value">{{ ServiceDetail.externalIP }}</span>
+        </p>
+        <p>
+            <span class="model-text">Port(s):</span>
+            <span class="model-value">{{ ServiceDetail.ports }}</span>
+        </p>
+        <p>
+            <span class="model-text">Namespace:</span>
+            <span class="model-value">{{ ServiceDetail.namespace }}</span>
+        </p>
+        <p>
+            <span class="model-text">Selector(s):</span>
+            <span class="model-value">
+                <ul>
+                    <li *ngFor="let sel of ServiceDetail.selector">{{ sel }}
+                    </li>
+                </ul>
+            </span>
+        </p>
+    </nz-container>
+</nz-modal>

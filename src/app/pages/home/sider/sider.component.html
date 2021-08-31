@@ -1,0 +1,23 @@
+<!-- <nz-sider nzTheme="light" class=""> -->
+<ul nz-menu nzWidth="200px" nzMode="inline" class="sider-menu">
+    <li nz-submenu nzOpen nzIcon="cluster" nzTitle="Cluster">
+        <ul>
+            <li nz-menu-item [routerLink]="['node']">Nodes</li>
+            <li nz-menu-item [routerLink]="['namespace']">Namespaces</li>
+        </ul>
+    </li>
+    <li nz-submenu nzOpen nzTitle="资源列表" nzIcon="unordered-list">
+        <ul>
+            <li nz-menu-item [routerLink]="['pod', selectedNamespace]">Pods</li>
+            <li nz-menu-item [routerLink]="['deployment', selectedNamespace]">Deployments</li>
+            <li nz-menu-item>StatefulSets</li>
+        </ul>
+    </li>
+    <li nz-submenu nzOpen nzTitle="服务发现" nzIcon="notification">
+        <ul>
+            <li nz-menu-item [routerLink]="['service', selectedNamespace]">Services</li>
+        </ul>
+    </li>
+</ul>
+<!-- <p>{{ selectedNamespace }}</p> -->
+<!-- </nz-sider> -->

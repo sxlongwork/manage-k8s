@@ -1,0 +1,38 @@
+<nz-header>
+    <div class="heade-left">
+        <h2>Kubernetes Management</h2>
+    </div>
+    <!-- <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li nz-menu-item nzSelected>nav 1</li>
+        <li nz-menu-item>nav 2</li>
+        <li nz-menu-item>nav 3</li>
+    </ul> -->
+    <div class="head-right" nz-row>
+        <div class="namespace" nz-col nzSpan="12">
+            <span>工作空间:  </span>
+            <nz-select nzShowSearch nzAllowClear 
+            nzPlaceHolder="Select a Namespace" 
+            [(ngModel)]="selectedValue" 
+            (ngModelChange)="changeNamespace()"> 
+                <nz-option nzLabel="{{item.name}}" nzValue="{{item.name}}" *ngFor="let item of ns" ></nz-option>
+              </nz-select>
+        </div>
+        <div class="userinfo" nz-col nzSpan="12">
+            <ul nz-menu nzTheme="dark" nzMode="horizontal">
+                <li nz-submenu>
+                    <div title>
+                        <span>{{username}}</span>
+                        <i nz-icon type="down" nzTheme="outline"></i>
+                    </div>
+                    <ul>
+                        <li nz-menu-item (click)="logout()">
+                            <i nz-icon type="user" nzTheme="outline"></i>
+                            logout
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nz-header>

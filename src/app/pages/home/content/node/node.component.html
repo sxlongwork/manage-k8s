@@ -1,0 +1,91 @@
+<nz-table #nodes [nzData]="nodeInfoList" [nzPageSize]="10" class="node-main">
+    <thead>
+        <tr>
+            <th *ngFor="let item of nodeInfoColumns" [nzSortOrder]="item.sortOrder" [nzSortFn]="item.sortFn"
+                [nzSortDirections]="item.sortDirections">
+                {{ item.name }}
+            </th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let node of nodes.data" class="node-item">
+            <td>{{node.name}}</td>
+            <td [ngClass]="{'activeStatus': node.status==='Active', 'unactiveStatus': node.status !== 'Active'}">{{node.status}}</td>
+            <td>{{node.createTime | toLocaltime}}</td>
+
+            <td>
+                <a (click)="getNodeDetail(node.name)">Detail</a>
+                <!-- <nz-divider nzType="vertical"></nz-divider>
+                <a>Edit</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a>Remove</a>
+                <nz-divider nzType="vertical"></nz-divider> -->
+                <!-- <nz-dropdown>
+          <a class="ant-dropdown-link" nz-dropdown>
+            More <i nz-icon type="down"></i>
+          </a>
+          <ul nz-menu>
+            <li nz-menu-item>
+              <a >active</a>
+            </li>
+          </ul>
+        </nz-dropdown> -->
+
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Node Detail" (nzOnCancel)="handleCancel()" [nzFooter]='null'>
+    <nz-container *nzModalContent>
+        <p>
+            <span class="model-text">Name:</span>
+            <span class="model-value">{{ nodeDetail.name }}</span>
+        </p>
+        <p>
+            <span class="model-text">Status:</span>
+            <span class="model-value" [ngClass]="{'activeStatus': nodeDetail.status==='Active', 'unactiveStatus': nodeDetail.status !== 'Active'}">{{ nodeDetail.status }}</span>
+        </p>
+        <p>
+            <span class="model-text">CreateTime:</span>
+            <span class="model-value">{{ nodeDetail.createTime }}</span>
+        </p>
+        <p>
+            <span class="model-text">PodCIDRS:</span>
+            <span class="model-value">{{ nodeDetail.podCIDRS }}</span>
+        </p>
+        <p>
+            <span class="model-text">Unschdulable:</span>
+            <span class="model-value">{{ nodeDetail.unschdulable }}</span>
+        </p>
+        <p>
+            <span class="model-text">Taints:</span>
+            <span class="model-value">
+                <ul>
+                    <li *ngFor="let taint of nodeDetail.taints">
+                        <span>{{ taint.key }}</span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>{{ taint.effect }}</span>
+                        <!-- <nz-divider nzType="vertical"></nz-divider>
+                        <span>{{ taint.timeAdded | toLocaltime }}</span> -->
+                    </li>
+                </ul>
+            </span>
+        </p>
+        <p>
+            <span class="model-text">Addresses:</span>
+            <span class="model-value">
+                <ul>
+                    <li *ngFor="let address of nodeDetail.Addresses">
+                        <span>{{ address.type }}</span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>{{ address.address }}</span>
+                        <!-- <nz-divider nzType="vertical"></nz-divider>
+                        <span>{{ taint.timeAdded | toLocaltime }}</span> -->
+                    </li>
+                </ul>
+            </span>
+        </p>
+    </nz-container>
+</nz-modal>

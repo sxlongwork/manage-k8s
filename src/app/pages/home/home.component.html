@@ -1,0 +1,32 @@
+<nz-layout>
+    <app-header 
+    [ns]="namespaceList" 
+    [selectedValue]="defaultNamespace"
+    (nsNotify)="namespaceChanged($event)"
+    ></app-header>
+    <nz-layout>
+        <nz-sider nzTheme="light" class="sider">
+            <app-sider class="app-sider" [selectedNamespace]="defaultNamespace"></app-sider>
+        </nz-sider>
+        <nz-layout class="layout-nz">
+            <nz-content>
+                <router-outlet>
+                </router-outlet>
+            </nz-content>
+        </nz-layout>
+
+        <!-- <nz-layout class="inner-layout">
+            <nz-breadcrumb>
+                <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+                <nz-breadcrumb-item>List</nz-breadcrumb-item>
+                <nz-breadcrumb-item>App</nz-breadcrumb-item>
+            </nz-breadcrumb>
+            <nz-content>Content</nz-content>
+        </nz-layout> -->
+        <!-- <router-outlet></router-outlet> -->
+    </nz-layout>
+    <nz-footer style="text-align: center;">
+        数据规范产业, 科技引导金融 ©{{date}} By
+        <a href="https://www.laiyuezs.com/" target="_blank" style="outline: none;color: #565656">莱月再生</a>
+    </nz-footer>
+</nz-layout>

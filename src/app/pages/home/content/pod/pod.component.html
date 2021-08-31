@@ -1,0 +1,61 @@
+<nz-table #podlist [nzData]="pods" [nzPageSize]="10" nzTableLayout="fixed" >
+    <thead>
+        <tr>
+            <th *ngFor="let item of podInfoColumns" [nzSortOrder]="item.sortOrder" [nzSortFn]="item.sortFn"
+                [nzSortDirections]="item.sortDirections">
+                {{ item.name }}
+            </th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pod of podlist.data" class="pod-item">
+            <td>{{ pod.podName }}</td>
+            <td [ngClass]="{'activeStatus': pod.status==='Running', 'unactiveStatus': pod.status !== 'Running'}">{{ pod.status }}</td>
+            <td>{{ pod.nodeName }}</td>
+            <td>{{ pod.restartCount }}</td>
+            <td>{{ pod.createTime | toLocaltime }}</td>
+
+            <td>
+                <a (click)="getPodDetail(pod.podName)">Detail</a>
+
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<!-- <ul>
+    <li *ngFor="let pod of pods"> {{ pod.podName }} </li>
+</ul> -->
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Pod Detail" (nzOnCancel)="handleCancel()" [nzFooter]='null'>
+    <nz-container *nzModalContent>
+        <p>
+            <span class="model-text">Name:</span>
+            <span class="model-value">{{ podDetail.podName }}</span>
+        </p>
+        <p>
+            <span class="model-text">Status:</span>
+            <span class="model-value" [ngClass]="{'activeStatus': podDetail.status==='Running', 'unactiveStatus': podDetail.status !== 'Running'}">{{ podDetail.status }}</span>
+        </p>
+        <p>
+            <span class="model-text">PodIP:</span>
+            <span class="model-value">{{ podDetail.podIP }}</span>
+        </p>
+        <p>
+            <span class="model-text">NodeName:</span>
+            <span class="model-value">{{ podDetail.nodeName }}</span>
+        </p>
+        <p>
+            <span class="model-text">CreateTime:</span>
+            <span class="model-value">{{ podDetail.createTime | toLocaltime}}</span>
+        </p>
+        <p>
+            <span class="model-text">RestartCount:</span>
+            <span class="model-value">{{ podDetail.restartCount }}</span>
+        </p>
+        <p>
+            <span class="model-text">Namespace:</span>
+            <span class="model-value">{{ podDetail.namespace }}</span>
+        </p>
+    </nz-container>
+</nz-modal>
